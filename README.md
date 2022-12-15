@@ -6,7 +6,7 @@ Ira is a free and open source Javascript (NWJS) applet for exploring and rapidly
 ## Installation
 
 ### Debugging 
-Just download or clone the repo and run 'npm install' to install the dependencies (Papaparse and NWJS), then run 'npm install'. 
+Just download or clone the repo and run 'npm install' to install the dependencies (Papaparse and NWJS), then run 'npm start'. 
 
 ### Standalone EXE for usage
 A built copy of Ira is distributed via Google Drive by following [this link](https://drive.google.com/file/d/1_20haciRI5P2GPgqUn-7rN2ludg6LgCK/view?usp=share_link). Just download the Ira.zip file, extract, and run Ira.exe
