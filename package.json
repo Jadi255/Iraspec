@@ -1,0 +1,32 @@
+{
+  "name": "ira",
+  "version": "1.0.0",
+  "description": "Simple FTIR data explorer",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nw"
+  },
+  "window": {
+    "title": "Ira FTIR data explorer",
+    "toolbar": false,
+    "frame": true,
+    "kiosk": false,
+    "width": 800,
+    "height": 600,
+    "resizable": true,
+    "icon": "icon.png"
+  },
+  "keywords": [
+    "Node-Webkit",
+    "NWJS",
+    "FITR",
+    "Spectroscopy"
+  ],
+  "author": "Jehad Nasereddin",
+  "license": "ISC",
+  "dependencies": {
+    "papaparse": "^5.3.2",
+    "plotly.js-dist-min": "^2.16.3"
+  }
+}
