@@ -20,8 +20,8 @@ Sometimes if you get an error while it's trying to load that's because the csv f
 
 #### A user manual is currently being developed and will be added to this repo ASAP. 
 
-##### Known issue: 
-1) Sometimes the peak detection tool will throw an error when trying to detect the peaks of stacked spectra plotted as %T. This issue occurs if you stack using **+Stack** for spectra acquired in transmittance. Stacking transmittance spectra is recommended by using the **-Stack** button._
+##### Known issues: 
+1) Sometimes the peak detection tool will throw an error when trying to detect the peaks of stacked spectra plotted as %T. This issue occurs if you stack using **+Stack** for spectra acquired in transmittance. Stacking transmittance spectra is recommended by using the **-Stack** button.
 2) If you're erasing a label (dashdot line) while you have annotations showing, the annotations will momentarily disappear. This is a bug in the tracing request and will be resolved in the upcoming build
 
 ### License: 
