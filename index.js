@@ -29,7 +29,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 function About(){
     alert(`
     Ira FTIR data explorer
-    Build number: 151222\n
+    Build number: 171222\n
     (C) Dr. Jehad Nasereddin
     Assistant Professor of Pharmaceutical Technology
     Zarqa University, 13110, Zarqa, JO
@@ -458,7 +458,7 @@ function ClearTag(target){
 function Unset(target){
     document.getElementById(target).remove();
     let Spectra = JSON.parse(sessionStorage.getItem('Spectra'));
-    let Annotations = sessionStorage.getItem('Annotations');
+    let Annotations = JSON.parse(sessionStorage.getItem('Annotations'));
 
     if(Annotations === null){
         Annotations = [];
@@ -573,6 +573,9 @@ function Unstack(){
 function Reset(){
     
     let Spectra = JSON.parse(sessionStorage.getItem('Raw'));
+    sessionStorage.removeItem('trace');
+    sessionStorage.removeItem('Annotations');
+    document.getElementById('labeledPeaks').innerHTML = '';
     Plot(Spectra);
     sessionStorage.setItem('Spectra', JSON.stringify(Spectra));
 
@@ -616,7 +619,7 @@ function Normalize(){
 function addLabel(){
     let wavenumber = document.getElementById('wavenumber').value;
     let Spectra = JSON.parse(sessionStorage.getItem('Spectra'));
-    let Annotations = sessionStorage.getItem('Annotations');
+    let Annotations = JSON.parse(sessionStorage.getItem('Annotations'));
     let traces = JSON.parse(sessionStorage.getItem('trace'));
 
     if(traces === null){
