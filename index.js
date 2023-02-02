@@ -275,7 +275,12 @@ function UpdateCurveSelector(){
     let Spectra = JSON.parse(sessionStorage.getItem('Spectra'));
     document.getElementById('CurveSelector').innerHTML = '<option class="form-control" disabled selected>Select Spectrum</option>'
     for(i in Spectra){
-        document.getElementById('CurveSelector').innerHTML += `<option value="${Spectra[i].name}">${Spectra[i].name}</option>`
+        let name = Spectra[i].name;
+        name = name.split(' ');
+        console.log(name[0]);
+        if(name[0] !== 'AUC'){
+            document.getElementById('CurveSelector').innerHTML += `<option value="${Spectra[i].name}">${Spectra[i].name}</option>`
+        }
     }
 }
 
@@ -357,11 +362,6 @@ function ScanPeaks(){
     let y = Spectrum.y;
         let indices = [];
 
-        let sum = 0;
-        for(i in y){
-            sum += y[i];
-        }
-        let average = sum / y.length;
 
         for(i in x){
             if(parseFloat(x[i]) > parseFloat(from)){
@@ -428,10 +428,115 @@ function ScanPeaks(){
 
 
         document.getElementById('labeledPeaks').innerHTML += 
-        `<p id="${x[target]}">Peak: ${FoundPeak} [1/cm] &nbsp; <button class="btn btn-default btn-mini" onclick="ClearTag(${x[target]})"><span class="icon icon-minus-circled"></span></button></p>`
+        `<sup><p id="${x[target]}">Peak: ${FoundPeak} [1/cm] &nbsp; <button class="btn btn-default btn-mini" onclick="ClearTag(${x[target]})"><span class="icon icon-minus-circled"></span></button></p><sup>`
 
         Plot(Spectra, Annotations);
 
+}
+
+
+function PeakArea(){
+    let Spectra = JSON.parse(sessionStorage.getItem('Spectra'));
+    let Annotations = JSON.parse(sessionStorage.getItem('Annotations'));
+    let Spectrum;
+    if(Annotations === null){
+        Annotations = [];
+    }
+
+    let target = document.getElementById('CurveSelector').value;
+    if(target === 'Select Spectrum'){
+        alert('Please select the spectrum you wish to analyze');
+    }
+    let from = parseFloat(document.getElementById('min').value);
+    let to = parseFloat(document.getElementById('max').value);
+    if(from > to){
+        alert('You need to set the ranges correctly\n\nMinimum value cannot exceed maximum value');
+    }
+    for(i in Spectra){
+        if(Spectra[i].name === target){
+            Spectrum = Spectra[i];
+        }
+    }
+
+    for(i in Spectrum.x){
+        Spectrum.x[i] = parseFloat(Spectrum.x[i]);
+        Spectrum.y[i] = parseFloat(Spectrum.y[i]);
+    }
+
+
+    let x = Spectrum.x;
+    let y = Spectrum.y;
+
+    console.log(`Integrating from ${from} to ${to}`);
+    let peak = [];
+
+    for(i in x){
+        if(x[i] >= from){
+            if(x[i] <= to){
+                peak.push([x[i], y[i]]);
+            }
+        }
+    }
+
+    let slices = peak.length;
+    let width = to - from; 
+    let sliceWidth = slices/width;
+
+    let peakX = [];
+    let peakY = [];
+    let cumsum = 0
+    for(i in peak){
+        let sliceArea = sliceWidth * peak[i][1];
+        cumsum += (sliceArea);
+        peakX.push(peak[i][0]);
+        peakY.push(peak[i][1]);
+    }
+
+    console.log(Math.abs(cumsum));
+
+    let peakArea = Math.round(cumsum, 2);
+
+    let data = {
+        x: peakX,
+        y: peakY,
+        fill: 'toself',
+        hoveron: 'points+fills',
+        text: `Peak Area = ${peakArea} Area Units`,
+        hoverinfo: 'text',
+        name:`AUC = ${peakArea} AU`,
+    };
+
+
+    document.getElementById('labeledPeaks').innerHTML +=
+    `<sup><p id="${Math.round(peakArea)}"> ${target} Peak Area = ${peakArea} Area Units &nbsp;<button class="btn btn-default btn-mini" onclick="RemoveAUC(${peakArea})"><span class="icon icon-minus-circled"></span></button></p><sup>
+    `
+    Spectra.push(data);
+    console.log(Spectra);
+    sessionStorage.setItem('Spectra', JSON.stringify(Spectra));
+    Plot(Spectra);
+
+}
+
+
+function RemoveAUC(target){
+    target = Math.round(target);
+    let Spectra = JSON.parse(sessionStorage.getItem('Spectra'));
+
+    for(i in Spectra){
+        if(Spectra[i].fill == 'toself'){
+            name = Spectra[i].name.split(' ')[2];
+            console.log(name);
+            console.log(target);
+
+            if(name == target){
+                Spectra.splice(i, 1);
+                Plot(Spectra);
+            }
+        }
+    }
+    document.getElementById(target).innerHTML = '';
+    sessionStorage.setItem('Spectra', JSON.stringify(Spectra));
+    Plot(Spectra);
 }
 
 //deletes an Annotation/peak label on button press
@@ -650,7 +755,9 @@ function addLabel(){
     sessionStorage.setItem('trace', JSON.stringify(traces));
     document.getElementById('labeledPeaks').innerHTML += 
     `
+    <sup>
     <p id="${wavenumber}">Label: ${wavenumber} [1/cm] &nbsp; <button class="btn btn-default btn-mini" onclick="Unset(${wavenumber})"><span class="icon icon-minus-circled"></span></button></p>
+    <sup>
     `
 
     Plot(Spectra, Annotations)
@@ -694,7 +801,9 @@ function find(value){
         sessionStorage.setItem('trace', JSON.stringify(traces));
         document.getElementById('labeledPeaks').innerHTML += 
         `
+        <sup>
         <p id="${wavenumber}">Label: ${wavenumber} [1/cm] &nbsp; <button class="btn btn-default btn-mini" onclick="Unset(${wavenumber})"><span class="icon icon-minus-circled"></span></button></p>
+        <sup>
         `
         Plot(Spectra, Annotations);
         document.getElementById('DefaultTab').click();

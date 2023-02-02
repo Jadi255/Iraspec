@@ -71,7 +71,7 @@
                   <span class="icon icon-arrows-ccw icon-text"></span>
                     A⇔%T
                 </button>
-                <button class="btn btn-mini btn-default" style="margin-bottom: 5%;" onclick="Normalize();">
+                <button class="btn btn-mini btn-default" style="margin-bottom: 5%;" onclick="Normalize();Normalize();">
                   <span class="icon icon-code icon-text" style="-webkit-transform: rotate(90deg);-moz-transform: rotate(90deg);-o-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);"></span>
                   Normalize
                 </button>   
@@ -87,8 +87,8 @@
               <div>
                 <details>
                   <summary class="nav-group-title">
-                    <span class="icon icon-search icon-text"></span>
-                    Peak Detection
+                    <span class="icon icon-tools icon-text"></span>
+                    Analysis Tools
                   </summary>
                   <div style="align-items: center;align-self: center;text-align: center;padding-top:5%">
                     <div class="form-group">
@@ -102,10 +102,17 @@
                       <input type="number" id="min" min="400" max="4000" placeholder="From" class="form-control" style="width:39%;">
                       <input type="number" id="max" min="400" max="4000" placeholder="To" class="form-control" style="width:39%;">
                   </div>
-                      <button class="btn btn-large btn-default" onclick="ScanPeaks()")>
-                          <span class="icon icon-search icon-text"></span>
-                          Scan
+                  <div class="btn-group">
+                      <button class="btn btn-mini btn-default" onclick="ScanPeaks()">
+                        <span class="icon icon-search icon-text"></span>
+                        Peak Find
                       </button>
+                    <button class="btn btn-mini btn-default" onclick="PeakArea()">
+                      <span class="icon icon-text">∫</span>
+                      Peak Area
+                  </button>
+                  </div>
+
                     </div>
                       
                 </details>
