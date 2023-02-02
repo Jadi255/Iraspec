@@ -29,7 +29,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 function About(){
     alert(`
     Ira FTIR data explorer
-    Build number: 171222\n
+    Build number: 020223\n
     (C) Dr. Jehad Nasereddin
     Assistant Professor of Pharmaceutical Technology
     Zarqa University, 13110, Zarqa, JO
