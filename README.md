@@ -2,7 +2,7 @@
 
 Ira is a free and open source Javascript (NWJS) applet for exploring and rapidly analyzing FTIR data.
  
-## Please cite: Jehad Nasereddin & Mohammad Shakib (2023) Ira: a free and open-source Fourier transform infrared (FTIR) data analysis widget for pharmaceutical applications, Analytical Letters, DOI: 10.1080/00032719.2023.2180516 [full article](https://www.tandfonline.com/eprint/UI7W5C9JCC5X4KQRTNNU/full?target=10.1080/00032719.2023.2180516)
+Please cite: Jehad Nasereddin & Mohammad Shakib (2023) Ira: a free and open-source Fourier transform infrared (FTIR) data analysis widget for pharmaceutical applications, Analytical Letters, DOI: 10.1080/00032719.2023.2180516 [full article](https://www.tandfonline.com/eprint/UI7W5C9JCC5X4KQRTNNU/full?target=10.1080/00032719.2023.2180516)
 
 ## Installation
 
