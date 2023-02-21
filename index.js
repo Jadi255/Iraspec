@@ -29,12 +29,22 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 function About(){
     alert(`
     Ira FTIR data explorer
-    Build number: 020223\n
+    Version 1 (Build number: 210223)\n
     (C) Dr. Jehad Nasereddin
     Assistant Professor of Pharmaceutical Technology
     Zarqa University, 13110, Zarqa, JO
-    Contact: jihad.nasereddin@gmail.com\n
+    Contact: jihad.nasereddin@gmail.com\n\n
+    Jehad Nasereddin & Mohammad Shakib (2023) Ira: a free and open-source Fourier transform infrared (FTIR) data analysis widget for pharmaceutical applications, Analytical Letters, DOI: 10.1080/00032719.2023
     `)
+}
+
+function reference(){
+    var navigate = confirm(`Please Cite:\nJehad Nasereddin & Mohammad Shakib (2023) Ira: a free and open-source Fourier transform infrared (FTIR) data analysis widget for pharmaceutical applications, Analytical Letters, DOI: 10.1080/00032719.2023.2180516\n\nClick 'Ok' to open the journal article, or click 'Cancel' to proceed to Ira
+    `);
+
+    if(navigate){
+        window.open('https://www.tandfonline.com/doi/full/10.1080/00032719.2023.2180516')
+    }
 }
 
 //Triggers the file load process
@@ -452,6 +462,7 @@ function PeakArea(){
     if(from > to){
         alert('You need to set the ranges correctly\n\nMinimum value cannot exceed maximum value');
     }
+    
     for(i in Spectra){
         if(Spectra[i].name === target){
             Spectrum = Spectra[i];
@@ -494,7 +505,7 @@ function PeakArea(){
 
     console.log(Math.abs(cumsum));
 
-    let peakArea = Math.round(cumsum, 2);
+    let peakArea = Math.abs(Math.round(cumsum, 2));
 
     let data = {
         x: peakX,
